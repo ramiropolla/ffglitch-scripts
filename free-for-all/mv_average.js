@@ -6,18 +6,64 @@
 const tail_length = 3;
 
 /*********************************************************************/
-// global variable holding forward motion vectors from previous frames
-let prev_fwd_mvs = [ ];
-let total_sum;
+class MVAverage
+{
+  constructor()
+  {
+    this.prev_mvs = [ ];
+  }
+
+  setup(tail_length)
+  {
+    this.tail_length_mv = MV(tail_length,tail_length);
+  }
+
+  run(mvs)
+  {
+    // update variable holding motion vectors from previous frames.
+    // note that we perform a deep copy of the clean motion vector
+    // values before modifying them.
+    const deep_copy = mvs.dup();
+    // push to the end of array
+    this.prev_mvs.push(deep_copy);
+
+    if ( this.prev_mvs.length == 1 )
+    {
+      // on first run, just initialize total_sum to the motion vector
+      // values from the first frame.
+      this.total_sum = deep_copy;
+    }
+    else
+    {
+      // update total_sum by removing the motion vector values from the
+      // oldest frame and adding the values from the current frame.
+      if ( this.prev_mvs.length > tail_length )
+      {
+        this.total_sum.sub(this.prev_mvs[0]);
+        this.prev_mvs = this.prev_mvs.slice(1);
+      }
+      this.total_sum.add(deep_copy);
+
+      // set new values for current frame to (total_sum / tail_length)
+      mvs.assign(this.total_sum);
+      mvs.div(this.tail_length_mv);
+    }
+  }
+}
 
 /*********************************************************************/
 import {
   get_forward_mvs,
 } from "./helpers.mjs";
 
+let mv_average;
+
 export function setup(args)
 {
   args.features = [ "mv" ];
+
+  mv_average = new MVAverage();
+  mv_average.setup(tail_length);
 }
 
 export function glitch_frame(frame, stream)
@@ -27,32 +73,5 @@ export function glitch_frame(frame, stream)
   if ( !fwd_mvs )
     return;
 
-  // update variable holding forward motion vectors from previous
-  // frames. note that we perform a deep copy of the clean motion
-  // vector values before modifying them.
-  const deep_copy = fwd_mvs.dup();
-  // push to the end of array
-  prev_fwd_mvs.push(deep_copy);
-
-  if ( prev_fwd_mvs.length == 1 )
-  {
-    // on first run, just initialize total_sum to the motion vector
-    // values from the first frame.
-    total_sum = deep_copy;
-  }
-  else
-  {
-    // update total_sum by removing the motion vector values from the
-    // oldest frame and adding the values from the current frame.
-    if ( prev_fwd_mvs.length > tail_length )
-    {
-      total_sum.sub(prev_fwd_mvs[0]);
-      prev_fwd_mvs = prev_fwd_mvs.slice(1);
-    }
-    total_sum.add(deep_copy);
-
-    // set new values for current frame to (total_sum / tail_length)
-    fwd_mvs.assign(total_sum);
-    fwd_mvs.div(MV(tail_length,tail_length));
-  }
+  mv_average.run(fwd_mvs);
 }
