@@ -1,0 +1,2 @@
+# ffglitch-scripts
+FFglitch scripts
