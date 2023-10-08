@@ -26,3 +26,10 @@ export function get_backward_mvs(frame, overflow)
 {
   return get_mvs_internal(frame, overflow, "backward");
 }
+
+/*********************************************************************/
+/* scales value from 'from' range to 'to' range */
+export function scaleValue(value, from_min, from_max, to_min, to_max)
+{
+  return (value - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
+}
