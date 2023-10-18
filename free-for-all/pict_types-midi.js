@@ -11,5 +11,6 @@ export function setup()
 
 export function pict_type_func(args)
 {
+  midiin.parse_events();
   return midi_val ? "I" : "P";
 }
