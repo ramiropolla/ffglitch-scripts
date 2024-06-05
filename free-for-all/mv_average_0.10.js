@@ -17,7 +17,7 @@ function average_mv(mv, i, j, n, k)
     return val;
 }
 
-function glitch_frame(frame)
+export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors
     let mvs = frame["mv"];
