@@ -5,6 +5,12 @@ var prev_fwd_mvs = [ ];
 // perform the average of motion vectors
 var tail_length = 10;
 
+export function setup(args)
+{
+    // select motion vector feature
+    args.features = [ "mv" ];
+}
+
 // calculate average of previous motion vectors
 function average_mv(mv, i, j, n, k)
 {
