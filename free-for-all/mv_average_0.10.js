@@ -26,15 +26,15 @@ function average_mv(mv, i, j, n, k)
 export function glitch_frame(frame)
 {
     // bail out if we have no forward motion vectors
-    let fwd_mvs = frame.mv?.forward;
+    const fwd_mvs = frame.mv?.forward;
     if ( !fwd_mvs )
         return;
 
     // update variable holding forward motion vectors from previous
     // frames. note that we perform a deep copy of the clean motion
     // vector values before modifying them.
-    let json_str = JSON.stringify(fwd_mvs);
-    let deep_copy = JSON.parse(json_str);
+    const json_str = JSON.stringify(fwd_mvs);
+    const deep_copy = JSON.parse(json_str);
     // push to the end of array
     prev_fwd_mvs.push(deep_copy);
     // drop values from earliest frames to always keep the same tail
@@ -51,11 +51,11 @@ export function glitch_frame(frame)
     for ( let i = 0; i < fwd_mvs.length; i++ )
     {
         // loop through all rows
-        let row = fwd_mvs[i];
+        const row = fwd_mvs[i];
         for ( let j = 0; j < row.length; j++ )
         {
             // loop through all macroblocks
-            let mv = row[j];
+            const mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
 
