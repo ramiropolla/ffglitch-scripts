@@ -1,9 +1,9 @@
 // global variable holding forward motion vectors from previous frames
-var prev_fwd_mvs = [ ];
+let prev_fwd_mvs = [ ];
 
 // change this value to use a smaller or greater number of frames to
 // perform the average of motion vectors
-var tail_length = 10;
+let tail_length = 10;
 
 export function setup(args)
 {
