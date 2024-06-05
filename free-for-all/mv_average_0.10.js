@@ -17,7 +17,7 @@ function average_mv(mv, i, j, n, k)
     let sum = 0;
     for ( let t = 0; t < n; t++ )
         sum += prev_fwd_mvs[t][i][j][k];
-    return Math.round(sum / n);
+    return Math.lround(sum / n);
 }
 
 export function glitch_frame(frame)
