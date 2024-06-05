@@ -33,8 +33,7 @@ export function glitch_frame(frame)
     // update variable holding forward motion vectors from previous
     // frames. note that we perform a deep copy of the clean motion
     // vector values before modifying them.
-    const json_str = JSON.stringify(fwd_mvs);
-    const deep_copy = JSON.parse(json_str);
+    const deep_copy = fwd_mvs.dup();
     // push to the end of array
     prev_fwd_mvs.push(deep_copy);
     // drop values from earliest frames to always keep the same tail
