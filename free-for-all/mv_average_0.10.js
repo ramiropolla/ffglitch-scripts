@@ -19,12 +19,8 @@ function average_mv(mv, i, j, n, k)
 
 export function glitch_frame(frame)
 {
-    // bail out if we have no motion vectors
-    let mvs = frame["mv"];
-    if ( !mvs )
-        return;
     // bail out if we have no forward motion vectors
-    let fwd_mvs = mvs["forward"];
+    let fwd_mvs = frame.mv?.forward;
     if ( !fwd_mvs )
         return;
 
