@@ -3,6 +3,7 @@ let prev_fwd_mvs = [ ];
 
 // change this value to use a smaller or greater number of frames to
 // perform the average of motion vectors
+// you can also change it using the `-sp <num>` command line option
 let tail_length = 10;
 
 export function setup(args)
@@ -16,6 +17,10 @@ export function setup(args)
     const output_fname = `glitched_${date_str}`;
     args.output = output_fname;
     console.log(`Output filename is "${output_fname}"`);
+
+    // parse tail_length param from command line if available
+    if ( "params" in args )
+        tail_length = args.params;
 }
 
 // calculate average of previous motion vectors
