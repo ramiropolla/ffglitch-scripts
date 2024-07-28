@@ -1,5 +1,6 @@
 // global variable holding forward motion vectors from previous frames
 let prev_fwd_mvs = [ ];
+let total_sum;
 
 // change this value to use a smaller or greater number of frames to
 // perform the average of motion vectors
@@ -23,15 +24,6 @@ export function setup(args)
         tail_length = args.params;
 }
 
-// calculate average of previous motion vectors
-function average_mv(mv, i, j, n, k)
-{
-    let sum = 0;
-    for ( let t = 0; t < n; t++ )
-        sum += prev_fwd_mvs[t][i][j][k];
-    return Math.lround(sum / n);
-}
-
 export function glitch_frame(frame)
 {
     // bail out if we have no forward motion vectors
@@ -48,30 +40,24 @@ export function glitch_frame(frame)
     const deep_copy = fwd_mvs.dup();
     // push to the end of array
     prev_fwd_mvs.push(deep_copy);
-    // drop values from earliest frames to always keep the same tail
-    // length
+
+    // initialize total_sum to a [0,0] MV2DArray.
+    if ( !total_sum )
+        total_sum = new MV2DArray(fwd_mvs.width, fwd_mvs.height);
+
+    // update total_sum by removing the motion vector values from the
+    // oldest frame and adding the values from the current frame.
     if ( prev_fwd_mvs.length > tail_length )
-        prev_fwd_mvs = prev_fwd_mvs.slice(1);
-
-    // bail out if we still don't have enough frames
-    if ( prev_fwd_mvs.length != tail_length )
-        return;
-
-    // replace all motion vectors of current frame with an average
-    // of the motion vectors from the previous 10 frames
-    for ( let i = 0; i < fwd_mvs.length; i++ )
     {
-        // loop through all rows
-        const row = fwd_mvs[i];
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            const mv = row[j];
+        total_sum.sub(prev_fwd_mvs[0]);
+        prev_fwd_mvs = prev_fwd_mvs.slice(1);
+    }
+    total_sum.add(deep_copy);
 
-            // THIS IS WHERE THE MAGIC HAPPENS
-
-            mv[0] = average_mv(mv, i, j, tail_length, 0);
-            mv[1] = average_mv(mv, i, j, tail_length, 1);
-        }
+    // set new values for current frame to (total_sum / tail_length)
+    if ( prev_fwd_mvs.length == tail_length )
+    {
+        fwd_mvs.assign(total_sum);
+        fwd_mvs.div(MV(tail_length, tail_length));
     }
 }
