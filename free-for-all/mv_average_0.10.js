@@ -9,6 +9,13 @@ export function setup(args)
 {
     // select motion vector feature
     args.features = [ "mv" ];
+
+    // create a new output filename based on the current time
+    // and the input filename
+    const date_str = new Date().toISOString().replaceAll(':', '_');
+    const output_fname = `glitched_${date_str}`;
+    args.output = output_fname;
+    console.log(`Output filename is "${output_fname}"`);
 }
 
 // calculate average of previous motion vectors
