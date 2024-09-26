@@ -70,3 +70,10 @@ JPEG glitches
 ```
 $ ./bin/fflive -i lena.jpg -s scripts/jpeg/dqt.js
 ```
+
+PNG glitches
+============
+
+```
+$ ./bin/fflive -i lena.png -s scripts/png/idat.js
+```

@@ -4,6 +4,7 @@
 // new DC quantization coefficient
 const dc_quant = 63;
 
+/*********************************************************************/
 export function setup(args)
 {
   // select feature "dqt"
