@@ -2,7 +2,7 @@
 
 /*********************************************************************/
 // new DC quantization coefficient
-const dc_quant = 63;
+const dc_quant = 63; // EXPERIMENT BY CHANGING THIS VALUE
 
 /*********************************************************************/
 export function setup(args)
