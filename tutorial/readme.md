@@ -94,5 +94,13 @@ $ ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_sink_and_rise_fast.js
 ```
 
 ```
+$ ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan.js
+```
+
+```
+$ ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan.js -sp "[ 0, 10 ]"
+```
+
+```
 $ ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_average.js
 ```
