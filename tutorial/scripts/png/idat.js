@@ -22,7 +22,7 @@ const filter_type = PNG_FILTER_VALUE_PAETH;
 
 export function setup(args)
 {
-  // select feature "idat"
+  // select image data feature
   args.features = [ "idat" ];
 }
 

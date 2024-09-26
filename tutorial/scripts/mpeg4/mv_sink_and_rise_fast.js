@@ -9,7 +9,7 @@
 /*********************************************************************/
 export function setup(args)
 {
-  // select feature "mv"
+  // select motion vector feature
   args.features = [ "mv" ];
 }
 

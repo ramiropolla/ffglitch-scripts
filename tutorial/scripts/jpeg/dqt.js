@@ -7,7 +7,7 @@ const dc_quant = 63; // EXPERIMENT BY CHANGING THIS VALUE
 /*********************************************************************/
 export function setup(args)
 {
-  // select feature "dqt"
+  // select quantization table feature
   args.features = [ "dqt" ];
 }
 

@@ -10,7 +10,7 @@ const dc_delta = 63; // EXPERIMENT BY CHANGING THIS VALUE
 /*********************************************************************/
 export function setup(args)
 {
-  // select feature "q_dc_delta"
+  // select quantized dc delta feature
   args.features = [ "q_dc_delta" ];
 }
 
