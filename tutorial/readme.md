@@ -64,6 +64,11 @@ $ rmdir ffglitch-0.10.1-mac64
 $ rm ffglitch-0.10.1-mac64.7z
 ```
 
+Set up FFglitch on Windows
+==========================
+
+Install Linux and follow `Set up FFglitch on Linux`.
+
 JPEG glitches
 =============
 
