@@ -67,7 +67,11 @@ rm ffglitch-0.10.1-mac64.7z
 Set up FFglitch on Windows
 ==========================
 
-Install Linux and follow `Set up FFglitch on Linux`.
+The recommended way to use FFglitch on Windows is to install Linux and
+use FFglitch on Linux.
+
+If you **really** insist on using Windows,
+[read this page to set it up](readme_windows.md).
 
 JPEG glitches
 =============
