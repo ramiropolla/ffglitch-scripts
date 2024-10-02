@@ -1,0 +1,15 @@
+[Unit]
+Description=FFglitch server
+After=network.target
+
+[Service]
+ExecStart=/home/ffglitch/code/ffglitch/build/qjs zmq_server.js
+Restart=always
+RestartSec=1
+User=ffglitch
+WorkingDirectory=/home/ffglitch/code/ffglitch/ffglitch-scripts/sbc
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

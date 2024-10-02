@@ -1,0 +1,17 @@
+[Unit]
+Description=FFlive
+After=display-manager.service
+
+[Service]
+ExecStart=/bin/bash -c 'sleep 5 && /home/ffglitch/code/ffglitch/ffglitch-scripts/sbc/run.sh'
+Restart=always
+RestartSec=5
+WorkingDirectory=/home/ffglitch/code/ffglitch/ffglitch-scripts/sbc
+StandardOutput=journal
+StandardError=journal
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/ffglitch/.Xauthority
+Type=simple
+
+[Install]
+WantedBy=default.target
