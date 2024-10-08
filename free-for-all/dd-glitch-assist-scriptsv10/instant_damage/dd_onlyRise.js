@@ -1,5 +1,5 @@
-// dd_onlyFall.js
-// only let's y-dimension mv's through if they're falling
+// dd_onlyRise.js
+// only let's y-dimension mv's through if they're rising
 
 export function setup(args)
 {
@@ -16,6 +16,6 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    const mask = fwd_mvs.compare_gt_v(0);
+    const mask = fwd_mvs.compare_lt_v(0);
     fwd_mvs.assign_v(0, mask);
 }
