@@ -16,14 +16,14 @@ export function glitch_frame(frame)
     if ( !fwd_mvs )
         return;
 
-	// note that we perform a deep copy of the clean motion
+    // note that we perform a deep copy of the clean motion
     // vector values before modifying them.
     let json_str = JSON.stringify(fwd_mvs);
     let deep_copy = JSON.parse(json_str);
-	// stick em in the buffer
+    // stick em in the buffer
     buffer = deep_copy;
 
-	var M_H = fwd_mvs.length/2;
+    var M_H = fwd_mvs.length/2;
     // VERTICALLY
     for ( let i = 0; i < fwd_mvs.length; i++ )
     {
@@ -36,17 +36,17 @@ export function glitch_frame(frame)
 
         var M_W = row.length/2;
 
-		// HORIZONTALLY
+        // HORIZONTALLY
         for ( let j = 0; j < row.length; j++ )
         {
             // loop through all macroblocks
             let mv = row[j];
-			var mv2 = row2[j];
+            var mv2 = row2[j];
             // THIS IS WHERE THE MAGIC HAPPENS
             //if(i>M_W){
-				mv[0] = mv2[0];
-            	mv[1] = 0-mv2[1];
-			//}
+                mv[0] = mv2[0];
+                mv[1] = 0-mv2[1];
+            //}
         }
     }
 }

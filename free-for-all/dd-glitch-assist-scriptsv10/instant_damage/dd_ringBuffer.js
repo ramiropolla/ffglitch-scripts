@@ -11,7 +11,7 @@ var prev_fwd_mvs = [ ];
 // try making the delay long enough to overlap an edit in the content ...
 var delay = 10;
 // divisor controls "feedback" ... or "feedforward" which ever is a better description ...
-var feedback = 0.5;			// a number between 0.000001 and .... yeah - controls how much of the buffered mv gets into the next pass
+var feedback = 0.5;            // a number between 0.000001 and .... yeah - controls how much of the buffered mv gets into the next pass
 
 var divisor = 1.0/feedback;
 
@@ -55,20 +55,20 @@ export function glitch_frame(frame)
         {
             // loop through all macroblocks
             let mv = row[j];
-			let dmv = delay_row[j];
+            let dmv = delay_row[j];
             let imv = insert_row[j];
             // THIS IS WHERE THE MAGIC HAPPENS
 
-		// temp copy of the incoming vectors
-			let x = mv[0];
-			let y = mv[1];
-		// pull their replacements out of the buffer
+        // temp copy of the incoming vectors
+            let x = mv[0];
+            let y = mv[1];
+        // pull their replacements out of the buffer
             mv[0] = dmv[0];
             mv[1] = dmv[1];
-		// feedback the 'old' with the 'new' for next time
+        // feedback the 'old' with the 'new' for next time
             imv[0] = (dmv[0] / divisor) + x;
             imv[1] = (dmv[1] / divisor) + y;
-		// rinse and repeat
+        // rinse and repeat
 
         }
     }

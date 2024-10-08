@@ -28,11 +28,11 @@ export function glitch_frame(frame)
 
             // THIS IS WHERE THE MAGIC HAPPENS
             if ( (mv[0] * mv[0])+(mv[1] * mv[1]) > movement_threshold*movement_threshold){
-	    		//mv[0] = Math.sin(i/W*Math.PI*2)*mv[0];
-  	    		//mv[1] = Math.cos(j/H*Math.PI*2)*mv[1];
-  	    		mv[0] = 0;//mv[0] * 10;
-  	    		mv[1] = 0;//mv[1] * 10;
-			}
+                //mv[0] = Math.sin(i/W*Math.PI*2)*mv[0];
+                  //mv[1] = Math.cos(j/H*Math.PI*2)*mv[1];
+                  mv[0] = 0;//mv[0] * 10;
+                  mv[1] = 0;//mv[1] * 10;
+            }
         }
     }
 }

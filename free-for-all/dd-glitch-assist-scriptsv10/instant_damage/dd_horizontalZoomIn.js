@@ -16,8 +16,8 @@ export function glitch_frame(frame)
     // clear horizontal element of all motion vectors
     for ( let i = 0; i < fwd_mvs.length; i++ )
     {
-		let row = fwd_mvs[i];
-		let MID_POINT = row.length/2;
+        let row = fwd_mvs[i];
+        let MID_POINT = row.length/2;
         // loop through all rows
 
         for ( let j = 0; j < row.length; j++ )
@@ -26,14 +26,14 @@ export function glitch_frame(frame)
             let mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
-			// HORIZONTAL 'ZOOM'
-			if(j > MID_POINT){
-				mv[0] = mv[0]+zspeed;
-				mv[1] = 0;
-			}else{
-				mv[0] = mv[0]-zspeed;
-				mv[1] = 0;
-			}
+            // HORIZONTAL 'ZOOM'
+            if(j > MID_POINT){
+                mv[0] = mv[0]+zspeed;
+                mv[1] = 0;
+            }else{
+                mv[0] = mv[0]-zspeed;
+                mv[1] = 0;
+            }
 
         }
     }

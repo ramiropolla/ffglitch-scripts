@@ -28,8 +28,8 @@ export function glitch_frame(frame)
             let mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
-			// SWAP X & Y VECTORS
-			//let t = mv[0]
+            // SWAP X & Y VECTORS
+            //let t = mv[0]
             //mv[0] = mv[1];
             //mv[1] = t;
             //mv = dd_swap(mv);
