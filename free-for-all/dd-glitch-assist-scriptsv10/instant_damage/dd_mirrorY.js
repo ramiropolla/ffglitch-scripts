@@ -12,14 +12,13 @@ export function setup(args)
 
 export function glitch_frame(frame)
 {
-    // bail out if we have no motion vectors
-    let mvs = frame["mv"];
-    if ( !mvs )
-        return;
     // bail out if we have no forward motion vectors
-    let fwd_mvs = mvs["forward"];
+    const fwd_mvs = frame.mv?.forward;
     if ( !fwd_mvs )
         return;
+
+    // set motion vector overflow behaviour in ffedit to "truncate"
+    frame.mv.overflow = "truncate";
 
     // note that we perform a deep copy of the clean motion
     // vector values before modifying them.

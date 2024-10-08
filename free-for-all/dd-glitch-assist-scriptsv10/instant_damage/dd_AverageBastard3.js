@@ -44,15 +44,13 @@ export function glitch_frame(frame)
             prev_avgy.push(0);
         }
     }
-    // bail out if we have no motion vectors
-    let mvs = frame["mv"];
-    if ( !mvs )
-        return;
     // bail out if we have no forward motion vectors
-    let fwd_mvs = mvs["forward"];
-
+    const fwd_mvs = frame.mv?.forward;
     if ( !fwd_mvs )
         return;
+
+    // set motion vector overflow behaviour in ffedit to "truncate"
+    frame.mv.overflow = "truncate";
 
     // average all the motion vectors in this frame
 
