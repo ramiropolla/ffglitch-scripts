@@ -13,7 +13,7 @@ export function glitch_frame(frame)
     if ( !fwd_mvs )
         return;
 
-	var M_H = fwd_mvs.length/2;
+    var M_H = fwd_mvs.length/2;
     // clear horizontal element of all motion vectors
     for ( let i = 0; i < fwd_mvs.length; i++ )
     {
@@ -29,9 +29,9 @@ export function glitch_frame(frame)
 
             // THIS IS WHERE THE MAGIC HAPPENS
             //if(i>M_W){
-				mv[0] = mv[0] + ((M_W - j) / 100)*ZOOM;
-            	mv[1] = mv[1] + ((M_H - i) / 100)*ZOOM;
-			//}
+                mv[0] = mv[0] + ((M_W - j) / 100)*ZOOM;
+                mv[1] = mv[1] + ((M_H - i) / 100)*ZOOM;
+            //}
         }
     }
 }

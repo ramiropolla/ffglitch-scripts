@@ -51,20 +51,20 @@ export function glitch_frame(frame)
         {
             // loop through all macroblocks
             let mv = row[j];
-			let dmv = delay_row[j];
+            let dmv = delay_row[j];
             let imv = insert_row[j];
             // THIS IS WHERE THE MAGIC HAPPENS
 
-		// temp copy of the incoming vectors
-			let x = mv[0];
-			let y = mv[1];
-		// pull their replacements out of the buffer
+        // temp copy of the incoming vectors
+            let x = mv[0];
+            let y = mv[1];
+        // pull their replacements out of the buffer
             mv[0] = dmv[0];
             mv[1] = dmv[1];
-		// feedback the 'old' with the 'new' for next time
+        // feedback the 'old' with the 'new' for next time
             imv[0] = x;
             imv[1] = y;
-		// rinse and repeat
+        // rinse and repeat
 
         }
     }

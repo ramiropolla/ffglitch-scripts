@@ -22,8 +22,8 @@ export function glitch_frame(frame)
             let mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
-	    	mv[0] = Math.sin(i)*mv[0];
-  	    	mv[1] = Math.cos(j)*mv[1];
+            mv[0] = Math.sin(i)*mv[0];
+              mv[1] = Math.cos(j)*mv[1];
         }
     }
 }
