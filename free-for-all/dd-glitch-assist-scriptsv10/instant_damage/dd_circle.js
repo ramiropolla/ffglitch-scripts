@@ -1,4 +1,4 @@
-// dd_circular.js
+// dd_circle.js
 
 export function setup(args)
 {
@@ -15,23 +15,10 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    // columns
-    let W = fwd_mvs.length;
-    for ( let i = 0; i < fwd_mvs.length; i++ )
-    {
-
-        let row = fwd_mvs[i];
-
-        // rows
-        let H = row.length;
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            let mv = row[j];
-
-            // THIS IS WHERE THE MAGIC HAPPENS
-            mv[0] = Math.sin(i/W*Math.PI*2)*mv[0];
-            mv[1] = Math.cos(j/H*Math.PI*2)*mv[1];
-        }
-    }
+    const H = fwd_mvs.height;
+    const W = fwd_mvs.width;
+    fwd_mvs.forEach((mv, i, j) => {
+        mv[0] *= Math.sin(i / H * Math.PI * 2);
+        mv[1] *= Math.cos(j / W * Math.PI * 2);
+    });
 }
