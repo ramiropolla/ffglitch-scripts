@@ -38,7 +38,6 @@ export function glitch_frame(frame)
             }else{
                 mv[0] = mv[0] - ((M_W - j) / 100)*ZOOM;
                 mv[1] = mv[1] - ((M_H - i) / 100)*ZOOM;
-
             }
         }
     }

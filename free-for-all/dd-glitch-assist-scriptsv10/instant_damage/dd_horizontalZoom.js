@@ -31,12 +31,10 @@ export function glitch_frame(frame)
             // HORIZONTAL 'ZOOM'
             if(j > MID_POINT){
                 mv[0] = mv[0]-15;
-                mv[1] = 0;
             }else{
                 mv[0] = mv[0]+15;
-                mv[1] = 0;
             }
-
+            mv[1] = 0;
         }
     }
 }

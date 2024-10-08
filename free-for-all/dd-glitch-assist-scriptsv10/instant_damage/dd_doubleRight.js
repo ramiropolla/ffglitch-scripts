@@ -31,11 +31,8 @@ export function glitch_frame(frame)
             // THIS IS WHERE THE MAGIC HAPPENS
             // DOUBLESPEED THE RIGHT HAND SIDE OF THE FRAME
             if(j > MID_POINT){
-                    mv[0] = mv[0] * 2;
-                    mv[1] = mv[1] * 2;
-            }else{
-                //            mv[0] = mv[0]+15;
-                //            mv[1] = 0;
+                mv[0] = mv[0] * 2;
+                mv[1] = mv[1] * 2;
             }
         }
     }

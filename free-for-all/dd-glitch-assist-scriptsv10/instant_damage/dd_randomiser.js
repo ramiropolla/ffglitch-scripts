@@ -26,8 +26,8 @@ export function glitch_frame(frame)
             let mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
-                mv[0] = mv[0] + (Math.floor((Math.random() * randomness) -bias));
-                mv[1] = mv[1] + (Math.floor((Math.random() * randomness) -bias));
+            mv[0] = mv[0] + (Math.floor((Math.random() * randomness) -bias));
+            mv[1] = mv[1] + (Math.floor((Math.random() * randomness) -bias));
         }
     }
 }

@@ -50,8 +50,6 @@ export function glitch_frame(frame)
                 var nmv = mv[1];
                 mv[1] = omv[1];
                 omv[1] = nmv + omv[1] - gravity;
-            }else{
-                mv[1] = mv[1];
             }
         }
     }

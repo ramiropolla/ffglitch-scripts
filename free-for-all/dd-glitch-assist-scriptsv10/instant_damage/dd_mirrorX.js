@@ -47,10 +47,8 @@ export function glitch_frame(frame)
             let mv = row[j];
             var mv2 = row2[(row.length - 1) - j];
             // THIS IS WHERE THE MAGIC HAPPENS
-            //if(i>M_W){
-                mv[0] = 0-mv2[0];
-                mv[1] = mv2[1];
-            //}
+            mv[0] = 0-mv2[0];
+            mv[1] = mv2[1];
         }
     }
 }

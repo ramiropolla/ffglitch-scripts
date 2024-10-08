@@ -38,7 +38,6 @@ export function glitch_frame(frame)
             //mv[1] = t;
             //mv = dd_swap(mv);
             //mv[0] = return_zero();
-
         }
     }
 }

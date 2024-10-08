@@ -33,13 +33,11 @@ export function glitch_frame(frame)
             // THIS IS WHERE THE MAGIC HAPPENS
             // HORIZONTAL 'ZOOM'
             if(i > MID_POINT){
-                mv[0] = 0;
                 mv[1] = mv[1]+zspeed;
             }else{
-                mv[0] = 0;
                 mv[1] = mv[1]-zspeed;
             }
-
+            mv[0] = 0;
         }
     }
 }

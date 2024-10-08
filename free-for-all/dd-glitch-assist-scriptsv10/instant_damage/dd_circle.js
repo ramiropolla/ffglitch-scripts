@@ -31,7 +31,7 @@ export function glitch_frame(frame)
 
             // THIS IS WHERE THE MAGIC HAPPENS
             mv[0] = Math.sin(i/W*Math.PI*2)*mv[0];
-              mv[1] = Math.cos(j/H*Math.PI*2)*mv[1];
+            mv[1] = Math.cos(j/H*Math.PI*2)*mv[1];
         }
     }
 }

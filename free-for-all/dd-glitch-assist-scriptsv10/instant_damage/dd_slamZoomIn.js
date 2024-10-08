@@ -32,10 +32,8 @@ export function glitch_frame(frame)
             let mv = row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
-            //if(i>M_W){
-                mv[0] = ((M_W - j) / 100)*ZOOM;
-                mv[1] = ((M_H - i) / 100)*ZOOM;
-            //}
+            mv[0] = ((M_W - j) / 100)*ZOOM;
+            mv[1] = ((M_H - i) / 100)*ZOOM;
         }
     }
 }

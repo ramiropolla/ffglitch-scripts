@@ -103,12 +103,8 @@ export function glitch_frame(frame)
         {
             // loop through all macroblocks
             let mv = row[j];
-           //mv[0] =  mv[0] + avg_prevx(tail_length);
-           //mv[1] =  mv[1] + avg_prevy(tail_length);
-           //mv[0] =  avg_prevx(tail_length);
-           //mv[1] =  avg_prevy(tail_length);
-           mv[0] = mv[0] + sumX;
-           mv[1] = mv[1] + sumY;
+            mv[0] = mv[0] + sumX;
+            mv[1] = mv[1] + sumY;
         }
     }
 }

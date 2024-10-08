@@ -34,7 +34,6 @@ export function glitch_frame(frame)
             }else{
                 mv[1] = 0;
             }
-            //mv[1] = mv[1] > 0 ? mv[1]:0; // you could also change the vertical motion vector
         }
     }
 }

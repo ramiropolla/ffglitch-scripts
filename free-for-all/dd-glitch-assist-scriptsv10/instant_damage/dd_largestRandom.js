@@ -55,13 +55,8 @@ export function glitch_frame(frame)
                 // THIS IS WHERE THE MAGIC HAPPENS
                 var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
                 if (this_mv > (LARGEST * SOME_PERCENTAGE)){
-//                    var t = mv[0];
-//                    mv[0] = mv[1];
-//                    mv[1] = t;
-
                     mv[0] = mv[0] + (( Math.random() * 100) - 50);
                     mv[1] = mv[1] + (( Math.random() * 100) - 50);
-                    //mv[0] = 0;
                 }
             }
     }

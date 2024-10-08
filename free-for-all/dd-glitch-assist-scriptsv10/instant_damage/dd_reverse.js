@@ -27,7 +27,6 @@ export function glitch_frame(frame)
 
             mv[0] = 0-mv[0]; // this sets the horizontal motion vector to zero
             mv[1] = 0-mv[1];
-            // mv[1] = 0; // you could also change the vertical motion vector
         }
     }
 }

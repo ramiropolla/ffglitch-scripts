@@ -92,13 +92,8 @@ export function glitch_frame(frame)
                 // THIS IS WHERE THE MAGIC HAPPENS
                 var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
                 if (this_mv < (LARGEST * SOME_PERCENTAGE)){
-//                    var t = mv[0];
-//                    mv[0] = mv[1];
-//                    mv[1] = t;
-
-                     mv[0] = average_mv(mv, i, j, tail_length, 0);
+                    mv[0] = average_mv(mv, i, j, tail_length, 0);
                     mv[1] = average_mv(mv, i, j, tail_length, 1);
-                    //mv[0] = 0;
                 }
             }
     }
