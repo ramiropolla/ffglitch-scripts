@@ -1,6 +1,6 @@
-// dd_zoomIn.js
+// dd_zoomOut.js
 
-let ZOOM = 20;
+let ZOOM = -20;
 
 export function setup(args)
 {

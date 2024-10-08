@@ -1,6 +1,6 @@
-// dd_zoomIn.js
+// dd_zoomWhoops.js
 
-let ZOOM = 20;
+let ZOOM = -20;
 
 export function setup(args)
 {
@@ -26,7 +26,7 @@ export function glitch_frame(frame)
     const M_W = fwd_mvs.width  / 2;
 
     fwd_mvs.forEach((mv, i, j) => {
-        mv[0] += ((M_W - j) / 100) * ZOOM;
-        mv[1] += ((M_H - i) / 100) * ZOOM;
+        mv[0] += ((i - M_W) / 100) * ZOOM;
+        mv[1] += ((j - M_H) / 100) * ZOOM;
     });
 }

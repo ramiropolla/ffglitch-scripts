@@ -1,4 +1,4 @@
-// dd_zoomIn.js
+// dd_zoomInOut.js
 
 let ZOOM = 20;
 
@@ -26,7 +26,15 @@ export function glitch_frame(frame)
     const M_W = fwd_mvs.width  / 2;
 
     fwd_mvs.forEach((mv, i, j) => {
-        mv[0] += ((M_W - j) / 100) * ZOOM;
-        mv[1] += ((M_H - i) / 100) * ZOOM;
+        if ( i > M_H )
+        {
+            mv[0] += ((M_W - j) / 100) * ZOOM;
+            mv[1] += ((M_H - i) / 100) * ZOOM;
+        }
+        else
+        {
+            mv[0] -= ((M_W - j) / 100) * ZOOM;
+            mv[1] -= ((M_H - i) / 100) * ZOOM;
+        }
     });
 }
