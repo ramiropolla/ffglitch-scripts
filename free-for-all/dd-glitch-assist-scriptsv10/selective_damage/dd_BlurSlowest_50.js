@@ -24,7 +24,7 @@ function average_mv(mv, i, j, n, k)
 
 export function glitch_frame(frame)
 {
-	LARGEST = 0;
+    LARGEST = 0;
     // bail out if we have no motion vectors
     let mvs = frame["mv"];
     if ( !mvs )
@@ -51,8 +51,8 @@ export function glitch_frame(frame)
     if ( prev_fwd_mvs.length != tail_length )
         return;
 
-   	// 1st loop - find the fastest mv
-   	// this ends-up in LARGEST as the square of the hypotenuse (mv[0]*mv[0]) + (mv[1]*mv[1])
+       // 1st loop - find the fastest mv
+       // this ends-up in LARGEST as the square of the hypotenuse (mv[0]*mv[0]) + (mv[1]*mv[1])
     let W = fwd_mvs.length;
     for ( let i = 0; i < fwd_mvs.length; i++ )
     {
@@ -67,30 +67,30 @@ export function glitch_frame(frame)
             // THIS IS WHERE THE MEASUREMENT HAPPENS
             var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
             if ( this_mv > LARGEST){
-				LARGEST = this_mv;
-			}
+                LARGEST = this_mv;
+            }
         }
     }
 
     // then find those mv's which are bigger than SOME_PERCENTAGE of LARGEST
     // and then replace them with the average mv from the last n frames
     for ( let i = 0; i < fwd_mvs.length; i++ )
-	    {
-	        let row = fwd_mvs[i];
-	        // rows
-	        let H = row.length;
-	        for ( let j = 0; j < row.length; j++ )
-	        {
-	            // loop through all macroblocks
-	            let mv = row[j];
+        {
+            let row = fwd_mvs[i];
+            // rows
+            let H = row.length;
+            for ( let j = 0; j < row.length; j++ )
+            {
+                // loop through all macroblocks
+                let mv = row[j];
 
-	            // THIS IS WHERE THE MAGIC HAPPENS
-	            var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
-	            if (this_mv < (LARGEST * SOME_PERCENTAGE)){
+                // THIS IS WHERE THE MAGIC HAPPENS
+                var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
+                if (this_mv < (LARGEST * SOME_PERCENTAGE)){
 
-			     	mv[0] = average_mv(mv, i, j, tail_length, 0);
-            		mv[1] = average_mv(mv, i, j, tail_length, 1);
-				}
-	        }
+                     mv[0] = average_mv(mv, i, j, tail_length, 0);
+                    mv[1] = average_mv(mv, i, j, tail_length, 1);
+                }
+            }
     }
 }

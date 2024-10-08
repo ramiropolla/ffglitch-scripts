@@ -17,14 +17,14 @@ export function glitch_frame(frame)
     if ( !fwd_mvs )
         return;
 
-	// buffer first set of vectors. . .
-	if(rt == 0){
-		let json_str = JSON.stringify(fwd_mvs);
-		let deep_copy = JSON.parse(json_str);
-		// push to the end of array
-		old_mvs.push(deep_copy);
-		rt = 1;
-	}
+    // buffer first set of vectors. . .
+    if(rt == 0){
+        let json_str = JSON.stringify(fwd_mvs);
+        let deep_copy = JSON.parse(json_str);
+        // push to the end of array
+        old_mvs.push(deep_copy);
+        rt = 1;
+    }
 
     // columns
     for ( let i = 0; i < fwd_mvs.length; i++ )
@@ -38,17 +38,17 @@ export function glitch_frame(frame)
         {
             // loop through all macroblocks
             let mv = row[j];
-			let omv = old_row[j];
+            let omv = old_row[j];
 
             // THIS IS WHERE THE MAGIC HAPPENS
             mv[0] = mv[0];
             if(mv[1] < 0){
-        	    var nmv = mv[1];
-        	    mv[1] = omv[1];
-        	    omv[1] = nmv + omv[1] - gravity;
-			}else{
-				mv[1] = mv[1];
-			}
+                var nmv = mv[1];
+                mv[1] = omv[1];
+                omv[1] = nmv + omv[1] - gravity;
+            }else{
+                mv[1] = mv[1];
+            }
         }
     }
 }

@@ -28,14 +28,14 @@ export function glitch_frame(frame)
 
             // THIS IS WHERE THE MAGIC HAPPENS
             if(phase == 1){
-				mv[0] = 0;
-			}else{
-            	mv[1] = 0;
-			}
+                mv[0] = 0;
+            }else{
+                mv[1] = 0;
+            }
         }
     }
     if(count++ >= frames_per_phase){
-		phase = phase * -1;
-		count = 0;
-	}
+        phase = phase * -1;
+        count = 0;
+    }
 }
