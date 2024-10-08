@@ -1,4 +1,4 @@
-// dd_horizontalZoom.js
+// dd_verticalZoom.js
 
 let zspeed = -15;
 
@@ -22,12 +22,12 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    const MID_POINT = fwd_mvs.width / 2;
+    const MID_POINT = fwd_mvs.height / 2;
     fwd_mvs.forEach((mv, i, j) => {
-        if ( j > MID_POINT )
-            mv[0] += zspeed;
+        mv[0] = 0;
+        if ( i > MID_POINT )
+            mv[1] += zspeed;
         else
-            mv[0] -= zspeed;
-        mv[1] = 0;
+            mv[1] -= zspeed;
     });
 }
