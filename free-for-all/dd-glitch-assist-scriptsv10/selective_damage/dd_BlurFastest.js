@@ -9,19 +9,6 @@ let total_sum;
 // change this value to use a smaller or greater number of frmes to average
 var tail_length = 20;
 
-// calculate average of previous motion vectors
-function average_mv(mv, i, j, n, k)
-{
-    let sum = 0;
-    for ( let t = 0; t < n; t++ )
-        sum += prev_fwd_mvs[t][i][j][k];
-    let val = Math.round(sum / n);
-    val = Math.max(val, -64);
-    val = Math.min(val,  63);
-    return val;
-}
-
-
 export function setup(args)
 {
     args.features = [ "mv" ];
