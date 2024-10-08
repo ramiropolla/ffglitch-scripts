@@ -13,7 +13,6 @@ export function setup(args)
 
 export function glitch_frame(frame)
 {
-
     var do_or_not = Math.random() * 100;
     if(do_or_not > threshold){
         if(TRIGGERED > 0){
@@ -27,33 +26,15 @@ export function glitch_frame(frame)
     if(TRIGGERED > 0 & frameCount <= nFrames){
         frameCount++;
 
-        // bail out if we have no motion vectors
-        let mvs = frame["mv"];
-        if ( !mvs )
-            return;
         // bail out if we have no forward motion vectors
-        let fwd_mvs = mvs["forward"];
+        const fwd_mvs = frame.mv?.forward;
         if ( !fwd_mvs )
             return;
 
-        var M_H = fwd_mvs.length/2;
-        // clear horizontal element of all motion vectors
-        for ( let i = 0; i < fwd_mvs.length; i++ )
-        {
-            // loop through all rows
-            let row = fwd_mvs[i];
-            var M_W = row.length/2;
+        // set motion vector overflow behaviour in ffedit to "truncate"
+        frame.mv.overflow = "truncate";
 
-            for ( let j = 0; j < row.length; j++ )
-            {
-                // loop through all macroblocks
-                let mv = row[j];
-
-                // THIS IS WHERE THE MAGIC HAPPENS
-                // STOP X
-                mv[0] = 0;
-            }
-        }
+        fwd_mvs.assign_h(0);
     }else{
         TRIGGERED = 0;
     }

@@ -13,14 +13,13 @@ export function glitch_frame(frame)
     var do_or_not = Math.random() * 100;
     // only do the glitch if our random number crosses the threshold
     if(do_or_not > threshold){
-        // bail out if we have no motion vectors
-        let mvs = frame["mv"];
-        if ( !mvs )
-            return;
         // bail out if we have no forward motion vectors
-        let fwd_mvs = mvs["forward"];
+        const fwd_mvs = frame.mv?.forward;
         if ( !fwd_mvs )
             return;
+
+        // set motion vector overflow behaviour in ffedit to "truncate"
+        frame.mv.overflow = "truncate";
 
         // clear horizontal element of all motion vectors
         for ( let i = 0; i < fwd_mvs.length; i++ )
@@ -31,13 +30,8 @@ export function glitch_frame(frame)
             {
                 // loop through all macroblocks
                 let mv = row[j];
-
-                // THIS IS WHERE THE MAGIC HAPPENS
-                // MULTIPLY X & Y VECTORS
-
                 mv[0] = Math.sin(i)*mv[0];
-                  mv[1] = Math.cos(j)*mv[1];
-
+                mv[1] = Math.cos(j)*mv[1];
             }
         }
     }
