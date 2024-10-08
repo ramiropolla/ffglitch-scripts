@@ -1,49 +1,26 @@
-// dd_removeAverageAverage
+// dd_AverageBastard
 
-var prev_avgx = [ ];
-var prev_avgy = [ ];
-var sumX = 0;
-var sumY = 0;
+// global variable holding forward motion vectors from previous frames
+let prev_average_mvs;
+let average_mv_sum = new MV(0, 0);
+
 // change this value to use a smaller or greater number of frames to
-// perform the average of average of motion vectors
-var tail_length = 20;
-var mycount = 0;
-
-function avg_prevx(n){
-    let sum = 0;
-    for (let t=0;t<n;t++){
-        sum += prev_avgx[t];
-    }
-    let val = Math.round(sum / n);
-    return val;
-}
-
-function avg_prevy(n){
-    let sum = 0;
-    for (let t=0;t<n;t++){
-        sum += prev_avgy[t];
-    }
-    let val = Math.round(sum / n);
-    return val;
-}
-
+// perform the average of motion vectors
+// you can also change it using the `-sp <num>` command line option
+let tail_length = 20;
 
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer from 0 to 100.
+    if ( "params" in args )
+        tail_length = args.params;
 }
 
 export function glitch_frame(frame)
 {
-    // do this once to setup
-    if(mycount == 0){
-        mycount = 1;
-        //push zeros into averages
-        for(var i=0;i<tail_length-1;i++){
-            prev_avgx.push(0);
-            prev_avgy.push(0);
-        }
-    }
     // bail out if we have no forward motion vectors
     const fwd_mvs = frame.mv?.forward;
     if ( !fwd_mvs )
@@ -52,60 +29,36 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    // average all the motion vectors in this frame
+    let average_mv = new MV(0, 0);
+    fwd_mvs.forEach((mv) => {
+        average_mv[0] += mv[0];
+        average_mv[1] += mv[1];
+    });
+    const length = fwd_mvs.height * fwd_mvs.width;
+    average_mv[0] = Math.floor(average_mv[0] / length);
+    average_mv[1] = Math.floor(average_mv[1] / length);
 
-    let Width = fwd_mvs.length;
-    let Height = 0;
-    sumX = 0;
-    sumY = 0;
-    let TOTAL = 0;
-    for ( let i = 0; i < fwd_mvs.length; i++ )
+    if ( !prev_average_mvs )
+        prev_average_mvs = Array(tail_length - 1).fill(MV(0, 0));
+
+    // push to the end of array
+    prev_average_mvs.push(average_mv);
+
+    // update average_mv_sum by removing the motion vector values from
+    // the oldest frame and adding the values from the current frame.
+    if ( prev_average_mvs.length > tail_length )
     {
-        let row = fwd_mvs[i];
-        Height = row.length;
-
-        for ( let j = 0; j < row.length; j++ )
-        {
-            sumX += row[j][0];
-            sumY += row[j][1];
-            TOTAL++;
-        }
+        average_mv_sum.sub(prev_average_mvs[0]);
+        prev_average_mvs = prev_average_mvs.slice(1);
     }
+    average_mv_sum.add(average_mv);
 
-
-    prev_avgx.push(sumX);
-    prev_avgy.push(sumY);
-
-    // if too much prev data, trim
-    if ( prev_avgx.length > tail_length ){
-        prev_avgx.slice(1);
-    }
-    if ( prev_avgy.length > tail_length ){
-        prev_avgy.slice(1);
-    }
-/*
-    //if not enough prev data don't do owt
-    if ( prev_avgx.length < tail_length ){
-        //return;
-    }
-    if ( prev_avgy.length < tail_length ){
-        //return;
-    }
-*/
-
-// attack the mvs
-    for ( let i = 0; i < fwd_mvs.length; i++ )
+    // set new values for current frame to (average_mv_sum / tail_length)
+    if ( prev_average_mvs.length == tail_length )
     {
-        // loop through all rows
-        let row = fwd_mvs[i];
-        let H = row.length;
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            let mv = row[j];
-            mv[0] =  mv[0] + avg_prevx(tail_length);
-            mv[1] =  mv[1] + avg_prevy(tail_length);
-        }
+        const deep_copy = fwd_mvs.dup();
+        fwd_mvs.assign(average_mv_sum);
+        fwd_mvs.div(MV(tail_length, tail_length));
+        fwd_mvs.add(deep_copy);
     }
 }
-
