@@ -6,6 +6,11 @@ var TRIGGERED = 0;
 var nFrames = 10;
 var frameCount = 0;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
 

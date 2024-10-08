@@ -10,6 +10,11 @@ var prev_fwd_mvs = [ ];
 // change this value to use a smaller or greater number of frmes to average
 var tail_length = 20;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     LARGEST = 0;

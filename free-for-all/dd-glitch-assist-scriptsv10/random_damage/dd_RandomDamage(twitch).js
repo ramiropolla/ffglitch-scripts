@@ -8,6 +8,11 @@ var nFrames = 10;
 var MAXFRAMES = 10;
 var frameCount = 0;
 var MAGNITUDE = 5;
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
 

@@ -6,6 +6,11 @@ var nFrames = 5;
 var TRIGGERED = 0;
 var count = 0;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

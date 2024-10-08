@@ -12,6 +12,11 @@ var DISPLACE = 0;
 var doDISPLACE = 0;
 var MAGNITUDE = 100;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
 

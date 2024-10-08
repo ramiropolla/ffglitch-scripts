@@ -1,6 +1,11 @@
 // dd_double_right.js
 // every mv is multiplied by 2
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors

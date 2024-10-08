@@ -1,6 +1,11 @@
 // dd_min_mover.js
 // only fuck things up if mv > movement_threshold
 var movement_threshold = 5;
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors
