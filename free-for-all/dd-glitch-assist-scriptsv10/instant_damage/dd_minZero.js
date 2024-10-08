@@ -1,9 +1,16 @@
-// dd_min_mover.js
-// only fuck things up if mv > movement_threshold
-var movement_threshold = 5;
+// dd_minZero.js
+
+// only fuck things up if mv < movement_threshold
+let movement_threshold = 10;
+
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer.
+    if ( "params" in args )
+        movement_threshold = args.params;
 }
 
 export function glitch_frame(frame)
@@ -16,25 +23,6 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    // columns
-    let W = fwd_mvs.length;
-    for ( let i = 0; i < fwd_mvs.length; i++ )
-    {
-
-        let row = fwd_mvs[i];
-
-        // rows
-        let H = row.length;
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            let mv = row[j];
-
-            // THIS IS WHERE THE MAGIC HAPPENS
-            if ( (mv[0] * mv[0])+(mv[1] * mv[1]) < movement_threshold*movement_threshold){
-                mv[0] = 0;//mv[0] * 10;
-                mv[1] = 0;//mv[1] * 10;
-            }
-        }
-    }
+    const mask = fwd_mvs.compare_lt(movement_threshold * movement_threshold);
+    fwd_mvs.assign(0, 0, mask);
 }
