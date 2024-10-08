@@ -1,4 +1,4 @@
-// dd_rotate180.js
+// dd_rotate180Negative.js
 
 export function setup(args)
 {
@@ -16,4 +16,5 @@ export function glitch_frame(frame)
     frame.mv.overflow = "truncate";
 
     fwd_mvs.reverse();
+    fwd_mvs.mul(-1, -1);
 }
