@@ -1,7 +1,7 @@
-// dd_MultiplySlowest_20.js
-// Multiply slowest moving mv's
+// dd_MultiplyFastest.js
+// Multiply fastest moving mv's
 var LARGEST = 0;
-var SOME_PERCENTAGE = 0.20;
+var SOME_PERCENTAGE = 0.10;
 var MULTIPLE = 10;
 
 // global variable holding forward motion vectors from previous frames
@@ -13,6 +13,11 @@ var tail_length = 20;
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer from 0 to 100.
+    if ( "params" in args )
+        SOME_PERCENTAGE = (100 - args.params) / 100;
 }
 
 export function glitch_frame(frame)
@@ -62,7 +67,7 @@ export function glitch_frame(frame)
 
                 // THIS IS WHERE THE MAGIC HAPPENS
                 var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
-                if (this_mv < (LARGEST * SOME_PERCENTAGE)){
+                if (this_mv > (LARGEST * SOME_PERCENTAGE)){
 
                      mv[0] = mv[0] * MULTIPLE;
                     mv[1] = mv[1] * MULTIPLE;

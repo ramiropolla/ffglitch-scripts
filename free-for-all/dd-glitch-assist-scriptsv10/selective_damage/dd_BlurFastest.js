@@ -1,8 +1,7 @@
-// dd_MultiplyFastest_30.js
-// Multiply fastest moving mv's
+// dd_blurFastest.js
+// apply 20-frame average to the fastest moving mv's
 var LARGEST = 0;
-var SOME_PERCENTAGE = 0.70; // only the fastest 10% of mv's in each frame get glitched
-var MULTIPLE = 10;
+var SOME_PERCENTAGE = 0.10;
 
 // global variable holding forward motion vectors from previous frames
 var prev_fwd_mvs = [ ];
@@ -10,9 +9,27 @@ var prev_fwd_mvs = [ ];
 // change this value to use a smaller or greater number of frmes to average
 var tail_length = 20;
 
+// calculate average of previous motion vectors
+function average_mv(mv, i, j, n, k)
+{
+    let sum = 0;
+    for ( let t = 0; t < n; t++ )
+        sum += prev_fwd_mvs[t][i][j][k];
+    let val = Math.round(sum / n);
+    val = Math.max(val, -64);
+    val = Math.min(val,  63);
+    return val;
+}
+
+
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer from 0 to 100.
+    if ( "params" in args )
+        SOME_PERCENTAGE = (100 - args.params) / 100;
 }
 
 export function glitch_frame(frame)
@@ -25,6 +42,23 @@ export function glitch_frame(frame)
     // bail out if we have no forward motion vectors
     let fwd_mvs = mvs["forward"];
     if ( !fwd_mvs )
+        return;
+
+
+    // update variable holding forward motion vectors from previous
+    // frames. note that we perform a deep copy of the clean motion
+    // vector values before modifying them.
+    let json_str = JSON.stringify(fwd_mvs);
+    let deep_copy = JSON.parse(json_str);
+    // push to the end of array
+    prev_fwd_mvs.push(deep_copy);
+    // drop values from earliest frames to always keep the same tail
+    // length
+    if ( prev_fwd_mvs.length > tail_length )
+        prev_fwd_mvs = prev_fwd_mvs.slice(1);
+
+    // bail out if we still don't have enough frames
+    if ( prev_fwd_mvs.length != tail_length )
         return;
 
        // 1st loop - find the fastest mv
@@ -64,8 +98,8 @@ export function glitch_frame(frame)
                 var this_mv = (mv[0] * mv[0])+(mv[1] * mv[1]);
                 if (this_mv > (LARGEST * SOME_PERCENTAGE)){
 
-                     mv[0] = mv[0] * MULTIPLE;
-                    mv[1] = mv[1] * MULTIPLE;
+                     mv[0] = average_mv(mv, i, j, tail_length, 0);
+                    mv[1] = average_mv(mv, i, j, tail_length, 1);
                 }
             }
     }
