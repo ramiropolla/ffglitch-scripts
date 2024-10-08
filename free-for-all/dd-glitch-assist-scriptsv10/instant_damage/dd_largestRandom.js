@@ -3,6 +3,11 @@
 var LARGEST = 0;
 var SOME_PERCENTAGE = 0.85; // only the fastest 15% of mv's in each frame get glitched
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     LARGEST = 0;

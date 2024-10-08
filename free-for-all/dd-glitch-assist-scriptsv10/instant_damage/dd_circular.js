@@ -1,3 +1,8 @@
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors

@@ -15,6 +15,11 @@ var feedback = 0.5;            // a number between 0.000001 and .... yeah - cont
 
 var divisor = 1.0/feedback;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors

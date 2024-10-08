@@ -6,6 +6,11 @@ let threshold = 95;
 var DISPLACE = 0;
 var MAGNITUDE = 500;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

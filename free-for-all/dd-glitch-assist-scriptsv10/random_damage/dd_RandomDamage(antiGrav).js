@@ -12,6 +12,11 @@ var TRIGGERED = 0;
 var frameCount = 10;
 var count = 0;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

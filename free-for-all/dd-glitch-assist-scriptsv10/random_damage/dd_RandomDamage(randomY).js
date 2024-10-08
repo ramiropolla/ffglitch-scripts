@@ -7,6 +7,11 @@ var DISPLACE = 0;
 var DISPLACE2 = 0;
 var MAGNITUDE = 200;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

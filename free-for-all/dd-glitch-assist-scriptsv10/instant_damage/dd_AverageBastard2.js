@@ -28,6 +28,11 @@ function avg_prevy(n){
 }
 
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // do this once to setup

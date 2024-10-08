@@ -1,5 +1,10 @@
 // mv_sink_and_rise.js glitch script
 // stolen directly from Ramiro Polla's tutorial page ...
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors
