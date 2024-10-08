@@ -1,14 +1,18 @@
 // dd_gravity.js
 
 // global variable holding forward motion vectors from previous frames
-var old_mvs = [ ];
+let old_mvs;
 // a variable for gravity
-var rt = 0;
-var gravity = 10;
+let gravity = 10;
 
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer.
+    if ( "params" in args )
+        gravity = args.params;
 }
 
 export function glitch_frame(frame)
@@ -22,35 +26,12 @@ export function glitch_frame(frame)
     frame.mv.overflow = "truncate";
 
     // buffer first set of vectors. . .
-    if(rt == 0){
-        let json_str = JSON.stringify(fwd_mvs);
-        let deep_copy = JSON.parse(json_str);
-        // push to the end of array
-        old_mvs.push(deep_copy);
-        rt = 1;
-    }
+    if ( !old_mvs )
+        old_mvs = fwd_mvs.dup();
 
-    // columns
-    for ( let i = 0; i < fwd_mvs.length; i++ )
-    {
-
-        let row = fwd_mvs[i];
-        let old_row = old_mvs[0][i];
-
-        // rows
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            let mv = row[j];
-            let omv = old_row[j];
-
-            // THIS IS WHERE THE MAGIC HAPPENS
-            mv[0] = mv[0];
-            if(mv[1] > 0){
-                var nmv = mv[1];
-                mv[1] = omv[1];
-                omv[1] = nmv + omv[1] - gravity;
-            }
-        }
-    }
+    const deep_copy = fwd_mvs.dup();
+    const mask = fwd_mvs.compare_gt_v(0);
+    fwd_mvs.assign_v(old_mvs, mask);
+    old_mvs.add_v(deep_copy, mask);
+    old_mvs.sub_v(gravity, mask);
 }
