@@ -1,6 +1,11 @@
 // dd_only_fall.js
 // only let's y-dimension mv's through if they're falling
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors

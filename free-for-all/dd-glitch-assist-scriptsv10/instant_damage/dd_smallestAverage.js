@@ -23,6 +23,11 @@ function average_mv(mv, i, j, n, k)
 }
 
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     LARGEST = 0;

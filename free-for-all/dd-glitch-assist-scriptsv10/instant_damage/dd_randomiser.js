@@ -1,5 +1,10 @@
 var randomness = 10;
 var bias = (randomness/2);
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors

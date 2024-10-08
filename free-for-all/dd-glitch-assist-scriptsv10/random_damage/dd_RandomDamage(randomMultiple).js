@@ -4,6 +4,11 @@
 let threshold = 95;
 let multiplier = 10;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

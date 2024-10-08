@@ -7,6 +7,11 @@ var buffer = [ ];
 let threshold = 95;
 var ZOOM = 100;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     var do_or_not = Math.random() * 100;

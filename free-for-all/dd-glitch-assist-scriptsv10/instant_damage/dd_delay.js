@@ -11,6 +11,11 @@ var prev_fwd_mvs = [ ];
 // try making the delay long enough to overlap an edit in the content ...
 var delay = 20;
 
+export function setup(args)
+{
+    args.features = [ "mv" ];
+}
+
 export function glitch_frame(frame)
 {
     // bail out if we have no motion vectors
