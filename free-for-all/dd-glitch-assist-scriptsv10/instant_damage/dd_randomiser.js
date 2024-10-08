@@ -1,8 +1,19 @@
-var randomness = 10;
-var bias = (randomness/2);
+// dd_randomiser.js
+
+let randomness = 10;
+let bias = (randomness / 2);
+
 export function setup(args)
 {
     args.features = [ "mv" ];
+
+    // Pass "-sp <value>" in the command line, where <value> is an
+    // integer.
+    if ( "params" in args )
+    {
+        randomness = args.params;
+        bias = (randomness / 2);
+    }
 }
 
 export function glitch_frame(frame)
@@ -15,19 +26,8 @@ export function glitch_frame(frame)
     // set motion vector overflow behaviour in ffedit to "truncate"
     frame.mv.overflow = "truncate";
 
-    // clear horizontal element of all motion vectors
-    for ( let i = 0; i < fwd_mvs.length; i++ )
-    {
-        // loop through all rows
-        let row = fwd_mvs[i];
-        for ( let j = 0; j < row.length; j++ )
-        {
-            // loop through all macroblocks
-            let mv = row[j];
-
-            // THIS IS WHERE THE MAGIC HAPPENS
-            mv[0] = mv[0] + (Math.floor((Math.random() * randomness) -bias));
-            mv[1] = mv[1] + (Math.floor((Math.random() * randomness) -bias));
-        }
-    }
+    fwd_mvs.forEach((mv, i, j) => {
+        mv[0] += Math.floor((Math.random() * randomness) - bias);
+        mv[1] += Math.floor((Math.random() * randomness) - bias);
+    });
 }
