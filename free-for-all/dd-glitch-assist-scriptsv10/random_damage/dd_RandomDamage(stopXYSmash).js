@@ -36,27 +36,11 @@ export function glitch_frame(frame)
         // set motion vector overflow behaviour in ffedit to "truncate"
         frame.mv.overflow = "truncate";
 
-        // clear horizontal element of all motion vectors
-        for ( let i = 0; i < fwd_mvs.length; i++ )
-        {
-            // loop through all rows
-            let row = fwd_mvs[i];
-            for ( let j = 0; j < row.length; j++ )
-            {
-                // loop through all macroblocks
-                let mv = row[j];
+        if (frameCount == nFrames)
+            fwd_mvs.mul(MAGNITUDE, MAGNITUDE);
+        else
+            fwd_mvs.assign(0, 0);
 
-                // THIS IS WHERE THE MAGIC HAPPENS
-                // STOP XY unless final frame, in which case randomise everything
-                if(frameCount == nFrames){
-                    mv[0] = MAGNITUDE * mv[0];// * (Math.random() * MAGNITUDE);
-                    mv[1] = MAGNITUDE * mv[1];// * (Math.random() * MAGNITUDE);
-                }else{
-                    mv[0] = 0;
-                    mv[1] = 0;
-                }
-            }
-        }
         frameCount++;
     }else{
         TRIGGERED = 0;

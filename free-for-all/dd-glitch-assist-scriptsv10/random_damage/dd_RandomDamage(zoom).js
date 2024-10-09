@@ -30,18 +30,9 @@ export function glitch_frame(frame)
         const M_H = fwd_mvs.height / 2;
         const M_W = fwd_mvs.width  / 2;
 
-        // clear horizontal element of all motion vectors
-        for ( let i = 0; i < fwd_mvs.length; i++ )
-        {
-            // loop through all rows
-            let row = fwd_mvs[i];
-            for ( let j = 0; j < row.length; j++ )
-            {
-                // loop through all macroblocks
-                let mv = row[j];
-                mv[0] = mv[0] + ((M_W - j) / 10)*ZOOM;
-                mv[1] = mv[1] + ((M_H - i) / 10)*ZOOM;
-            }
-        }
+        fwd_mvs.forEach((mv, i, j) => {
+            mv[0] += ((M_W - j) / 10) * ZOOM;
+            mv[1] += ((M_H - i) / 10) * ZOOM;
+        });
     }
 }

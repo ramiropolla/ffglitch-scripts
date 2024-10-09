@@ -39,30 +39,19 @@ export function glitch_frame(frame)
         const M_H = fwd_mvs.height / 2;
         const M_W = fwd_mvs.width  / 2;
 
-        // clear horizontal element of all motion vectors
-        for ( let i = 0; i < fwd_mvs.length; i++ )
-        {
-            // loop through all rows
-            let row = fwd_mvs[i];
-            for ( let j = 0; j < row.length; j++ )
+        fwd_mvs.forEach((mv, i, j) => {
+            if ( frameCount == 0 )
             {
-                // loop through all macroblocks
-                let mv = row[j];
-
-                // THIS IS WHERE THE MAGIC HAPPENS
-                // STOP XY unless final frame, in which case randomise everything
-                if ( frameCount == 0 )
-                {
-                    mv[0] = mv[0] * MAGNITUDE;
-                    mv[1] = 0;
-                }
-                if ( frameCount == 1 )
-                {
-                    mv[1] = mv[1] * MAGNITUDE;
-                    mv[0] = 0;
-                }
+                mv[0] *= MAGNITUDE;
+                mv[1] = 0;
             }
-        }
+            if ( frameCount == 1 )
+            {
+                mv[1] *= MAGNITUDE;
+                mv[0] = 0;
+            }
+        });
+
         frameCount++;
     }else{
         TRIGGERED = 0;

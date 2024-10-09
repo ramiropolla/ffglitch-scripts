@@ -24,9 +24,8 @@ export function glitch_frame(frame)
             DISPLACE = 0-DISPLACE;
         }
         n_DIR = Math.random() * 100;
-        if(n_DIR > 50){
-            DISPLACE2 = 0-DISPLACE2;
-        }
+        if (n_DIR > 50)
+            DISPLACE2 *= -1;
         // bail out if we have no forward motion vectors
         const fwd_mvs = frame.mv?.forward;
         if ( !fwd_mvs )

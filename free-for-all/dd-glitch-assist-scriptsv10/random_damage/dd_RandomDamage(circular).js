@@ -21,18 +21,9 @@ export function glitch_frame(frame)
         // set motion vector overflow behaviour in ffedit to "truncate"
         frame.mv.overflow = "truncate";
 
-        // clear horizontal element of all motion vectors
-        for ( let i = 0; i < fwd_mvs.length; i++ )
-        {
-            // loop through all rows
-            let row = fwd_mvs[i];
-            for ( let j = 0; j < row.length; j++ )
-            {
-                // loop through all macroblocks
-                let mv = row[j];
-                mv[0] = Math.sin(i)*mv[0];
-                mv[1] = Math.cos(j)*mv[1];
-            }
-        }
+        fwd_mvs.forEach((mv, i, j) => {
+            mv[0] *= Math.sin(i);
+            mv[1] *= Math.cos(j);
+        });
     }
 }
