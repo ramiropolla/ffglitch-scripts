@@ -67,12 +67,12 @@ YouTube Live MPEG4 glitches (Linux only)
 
 Fetch live stream from YouTube, convert to MPEG4, run average of motion vectors over previous frames:
 ```
-yt-dlp -o - 'https://youtu.be/XBzV4HzXymc' | ./bin/ffgac -i - -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+yt-dlp -o - 'https://youtu.be/XBzV4HzXymc' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 Same as above, another stream:
 ```
-yt-dlp -o - 'https://youtu.be/czoEAKX9aaM' | ./bin/ffgac -i - -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+yt-dlp -o - 'https://youtu.be/czoEAKX9aaM' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 Screen capture MPEG4 glitches (Linux X11 only)
