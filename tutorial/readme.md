@@ -54,12 +54,20 @@ Run average of motion vectors over previous frames:
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_average.js
 ```
 
+Any input file -> MPEG4 glitches
+================================
+
+Convert any input file to MPEG4, run average of motion vectors over previous frames:
+```
+./bin/ffgac -i MY_INPUT_FILE -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+```
+
 Webcam MPEG4 glitches (Linux only)
 ==================================
 
 Capture webcam, convert to MPEG4, run average of motion vectors over previous frames:
 ```
-./bin/ffgac -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js
+./bin/ffgac -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 YouTube Live MPEG4 glitches (Linux only)
@@ -67,12 +75,12 @@ YouTube Live MPEG4 glitches (Linux only)
 
 Fetch live stream from YouTube, convert to MPEG4, run average of motion vectors over previous frames:
 ```
-yt-dlp -o - 'https://youtu.be/XBzV4HzXymc' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+yt-dlp -o - 'https://youtu.be/XBzV4HzXymc' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 Same as above, another stream:
 ```
-yt-dlp -o - 'https://youtu.be/czoEAKX9aaM' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+yt-dlp -o - 'https://youtu.be/czoEAKX9aaM' | ./bin/ffgac -i pipe: -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 Screen capture MPEG4 glitches (Linux X11 only)
@@ -80,5 +88,5 @@ Screen capture MPEG4 glitches (Linux X11 only)
 
 Screen capture region around mouse cursor, convert to MPEG4, run average of motion vectors over previous frames:
 ```
-./bin/ffgac -f x11grab -follow_mouse centered -framerate 15 -video_size 640x480 -i :0.0 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -sc_threshold max -g max -vcodec mpeg4 -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js
+./bin/ffgac -f x11grab -follow_mouse centered -framerate 15 -video_size 640x480 -i :0.0 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -sc_threshold max -g max -vcodec mpeg4 -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
