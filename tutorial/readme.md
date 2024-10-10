@@ -75,6 +75,12 @@ Capture webcam, convert to MPEG4, run average of motion vectors over previous fr
 ./bin/ffgac -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
+Capture webcam, convert to MPEG4, add value to all motion vectors (using MIDI controller):
+```
+./bin/ffgac -input_format mjpeg -video_size 1280x720 -i /dev/video0 -vf hflip -c:v mpeg4 -q:v 1 -mpv_flags +nopimb+forcemv -g max -sc_threshold max -mb_type_script scripts/mpeg4/mb_type_midi.js -f avpipe - | ./bin/fflive -i - -s scripts/mpeg4/mv_pan_midi.js
+```
+NOTE: you can also clear the image with the MIDI controller (fader 0 selects time to clear, button 32 triggers it).
+
 YouTube Live MPEG4 glitches (Linux only)
 ========================================
 
