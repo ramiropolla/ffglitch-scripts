@@ -8,10 +8,12 @@ Set up
 JPEG glitches
 =============
 
+Simple glitch that modifies the DC quantization coefficient:
 ```
 ./bin/fflive -i lena.jpg -s scripts/jpeg/dqt.js
 ```
 
+Simple glitch that modifies the quantized DC delta:
 ```
 ./bin/fflive -i lena.jpg -s scripts/jpeg/q_dc_delta.js
 ```
@@ -19,6 +21,7 @@ JPEG glitches
 PNG glitches
 ============
 
+Modify the filter type of PNG images:
 ```
 ./bin/fflive -i lena.png -s scripts/png/idat.js
 ```
@@ -26,22 +29,51 @@ PNG glitches
 MPEG4 glitches
 ==============
 
+Clear the horizontal element of all motion vectors:
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_sink_and_rise.js
 ```
 
+Clear the horizontal element of all motion vectors (faster):
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_sink_and_rise_fast.js
 ```
 
+Add value to all motion vectors:
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan.js
 ```
 
+Add value to all motion vectors (parameters on command line):
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan.js -sp "[ 0, 10 ]"
 ```
 
+Run average of motion vectors over previous frames:
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_average.js
+```
+
+Webcam MPEG4 glitches (Linux only)
+==================================
+
+Capture webcam, convert to MPEG4, run average of motion vectors over previous frames:
+```
+./bin/ffgac -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js
+```
+
+YouTube Live MPEG4 glitches (Linux only)
+========================================
+
+Fetch live stream from YouTube, convert to MPEG4, run average of motion vectors over previous frames:
+```
+yt-dlp -o - 'https://youtu.be/XBzV4HzXymc' | ./bin/ffgac -i - -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo - | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
+```
+
+Screen capture MPEG4 glitches (Linux X11 only)
+==============================================
+
+Screen capture region around mouse cursor, convert to MPEG4, run average of motion vectors over previous frames:
+```
+./bin/ffgac -f x11grab -follow_mouse centered -framerate 15 -video_size 640x480 -i :0.0 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -sc_threshold max -g max -vcodec mpeg4 -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js
 ```
