@@ -49,6 +49,11 @@ Add value to all motion vectors (parameters on command line):
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan.js -sp "[ 0, 10 ]"
 ```
 
+Add value to all motion vectors (using MIDI controller):
+```
+./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_pan_midi.js
+```
+
 Run average of motion vectors over previous frames:
 ```
 ./bin/fflive -i CEP00109_mpeg4.avi -s scripts/mpeg4/mv_average.js
