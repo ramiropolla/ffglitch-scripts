@@ -90,3 +90,19 @@ Screen capture region around mouse cursor, convert to MPEG4, run average of moti
 ```
 ./bin/ffgac -f x11grab -follow_mouse centered -framerate 15 -video_size 640x480 -i :0.0 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -sc_threshold max -g max -vcodec mpeg4 -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
+
+Virtual Webcam MJPEG glitches (Linux only)
+==========================================
+
+Install and start v4l2loopback:
+```
+sudo apt-get install v4l2loopback-utils
+sudo modprobe v4l2loopback video_nr=5 card_label="VirtualCam" exclusive_caps=1
+```
+
+Launch Virtual Webcam:
+```
+./bin/ffgac -input_format mjpeg -video_size 1920x1080 -i /dev/video0 -vcodec copy -f rawvideo pipe: | ./bin/ffedit -i pipe: -s scripts/jpeg/dqt.js -o pipe: | ./bin/ffgac -i pipe: -vcodec copy -f v4l2 /dev/video5
+```
+
+You can now use the Virtual Webcam (`/dev/video5`) on Google Chrome, Telegram, or whatever... just like a normal webcam.
