@@ -1,77 +1,9 @@
-Set up FFglitch on Linux
-========================
+Set up
+======
 
-- Either run this one magic command:
-```
-wget https://ffglitch.org/pub/bin/linux64/ffglitch-0.10.1-linux64.7z && \
-7z x ffglitch-0.10.1-linux64.7z && \
-mkdir -p bin && \
-mv ffglitch-0.10.1-linux64/* bin/ && \
-rmdir ffglitch-0.10.1-linux64 && \
-rm ffglitch-0.10.1-linux64.7z
-```
-
-Or run the commands separately:
-- Download FFglitch:
-```
-wget https://ffglitch.org/pub/bin/linux64/ffglitch-0.10.1-linux64.7z
-```
-- Unpack it:
-```
-7z x ffglitch-0.10.1-linux64.7z
-```
-- Move its contents to a directory named `bin`:
-```
-mkdir -p bin
-mv ffglitch-0.10.1-linux64/* bin/
-```
-- Cleanup
-```
-rmdir ffglitch-0.10.1-linux64
-rm ffglitch-0.10.1-linux64.7z
-```
-
-Set up FFglitch on macOS
-========================
-
-- Either run this one magic command:
-```
-wget https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.1-mac64.7z && \
-7z x ffglitch-0.10.1-mac64.7z && \
-mkdir -p bin && \
-mv ffglitch-0.10.1-mac64/* bin/ && \
-rmdir ffglitch-0.10.1-mac64 && \
-rm ffglitch-0.10.1-mac64.7z
-```
-
-Or run the commands separately:
-- Download FFglitch:
-```
-wget https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.1-mac64.7z
-```
-- Unpack it:
-```
-7z x ffglitch-0.10.1-mac64.7z
-```
-- Move its contents to a directory named `bin`:
-```
-mkdir -p bin
-mv ffglitch-0.10.1-mac64/* bin/
-```
-- Cleanup
-```
-rmdir ffglitch-0.10.1-mac64
-rm ffglitch-0.10.1-mac64.7z
-```
-
-Set up FFglitch on Windows
-==========================
-
-The recommended way to use FFglitch on Windows is to install Linux and
-use FFglitch on Linux.
-
-If you **really** insist on using Windows,
-[read this page to set it up](readme_windows.md).
+- [Set up FFglitch on Linux](readme_linux.md).
+- [Set up FFglitch on macOS](readme_macos.md).
+- [Set up FFglitch on Windows](readme_windows.md).
 
 JPEG glitches
 =============

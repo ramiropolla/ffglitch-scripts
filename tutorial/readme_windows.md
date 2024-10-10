@@ -1,6 +1,11 @@
 Set up FFglitch on Windows
 ==========================
 
+The recommended way to use FFglitch on Windows is to install Linux and
+use FFglitch on Linux.
+
+If you **really** insist on using Windows, follow these steps:
+
 - Install Visual Studio Code and make sure you have bash working as a
 terminal, like here:
 
