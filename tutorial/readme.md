@@ -67,8 +67,8 @@ Convert any input file to MPEG4, run average of motion vectors over previous fra
 ./bin/ffgac -i MY_INPUT_FILE -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
-Webcam MPEG4 glitches (Linux only)
-==================================
+Webcam MPEG4 glitches (Linux)
+=============================
 
 Capture webcam, convert to MPEG4, run average of motion vectors over previous frames:
 ```
@@ -81,8 +81,23 @@ Capture webcam, convert to MPEG4, add value to all motion vectors (using MIDI co
 ```
 NOTE: you can also clear the image with the MIDI controller (fader 0 selects time to clear, button 32 triggers it).
 
-YouTube Live MPEG4 glitches (Linux only)
-========================================
+Webcam MPEG4 glitches (Windows)
+===============================
+
+Find webcam:
+```
+ffmpeg -list_devices true -f dshow -i dummy
+```
+
+Capture webcam (replace `"HP Truevision HD Camera"` with appropriate output from the previous command), convert to MPEG4, run average of motion vectors over previous frames:
+```
+./bin/ffgac -f dshow -i video="HP TrueVision HD Camera" -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_sink_and_rise.js -fs -asap
+```
+
+YouTube Live MPEG4 glitches
+===========================
+
+(make sure to have yt-dlp installed)
 
 Fetch live stream from YouTube, convert to MPEG4, run average of motion vectors over previous frames:
 ```
