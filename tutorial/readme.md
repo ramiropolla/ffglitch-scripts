@@ -91,7 +91,7 @@ Webcam MPEG4 glitches (Windows)
 
 Find webcam:
 ```
-ffmpeg -list_devices true -f dshow -i dummy
+./bin/ffgac -list_devices true -f dshow -i dummy
 ```
 
 Capture webcam (replace `"HP Truevision HD Camera"` with appropriate output from the previous command), convert to MPEG4, run average of motion vectors over previous frames:
