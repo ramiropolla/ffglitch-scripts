@@ -4,7 +4,7 @@
 // This script has similar functionality to mv_sink_and_rise.js, but it
 // uses optimized functions that make it much much faster.
 // Go here for more documentation on the optimized functions:
-// - https://ffglitch.org/docs/0.10.1/quickjs/mv2darray#mv2darrayprototypemathop
+// - https://ffglitch.org/docs/0.10.2/quickjs/mv2darray#mv2darrayprototypemathop
 
 /*********************************************************************/
 export function setup(args)
