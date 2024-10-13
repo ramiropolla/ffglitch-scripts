@@ -67,6 +67,11 @@ Convert any input file to MPEG4, run average of motion vectors over previous fra
 ./bin/ffgac -i MY_INPUT_FILE -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
+A shorter version of the commands above using helper scripts:
+```
+./sh/file_to_mpeg4.sh MY_INPUT_FILE | ./sh/fflive_pipe -s scripts/mpeg4/mv_average.js -fs
+```
+
 Webcam MPEG4 glitches (Linux)
 =============================
 
