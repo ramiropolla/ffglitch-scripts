@@ -102,7 +102,7 @@ Capture webcam (replace `"HP Truevision HD Camera"` with appropriate output from
 YouTube Live MPEG4 glitches
 ===========================
 
-(make sure to have yt-dlp installed)
+(make sure to have [yt-dlp](https://github.com/yt-dlp/yt-dlp) installed)
 
 Fetch live stream from YouTube, convert to MPEG4, run average of motion vectors over previous frames:
 ```
