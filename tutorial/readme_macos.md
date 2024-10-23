@@ -3,7 +3,7 @@ Set up FFglitch on macOS
 
 - Either run this one magic command:
 ```
-wget https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.2-macos-x86_64.zip && \
+curl -O https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.2-macos-x86_64.zip && \
 unzip ffglitch-0.10.2-macos-x86_64.zip && \
 mkdir -p bin && \
 mv ffglitch-0.10.2-macos-x86_64/* bin/ && \
@@ -14,7 +14,7 @@ rm ffglitch-0.10.2-macos-x86_64.zip
 Or run the commands separately:
 - Download FFglitch:
 ```
-wget https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.2-macos-x86_64.zip
+curl -O https://ffglitch.org/pub/bin/mac64/ffglitch-0.10.2-macos-x86_64.zip
 ```
 - Unpack it:
 ```
