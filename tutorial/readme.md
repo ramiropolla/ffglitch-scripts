@@ -2,7 +2,8 @@ Set up
 ======
 
 - [Set up FFglitch on Linux](readme_linux.md).
-- [Set up FFglitch on macOS](readme_macos.md).
+- [Set up FFglitch on macOS x86_64](readme_macos_x86_64.md).
+- [Set up FFglitch on macOS aarch64](readme_macos_aarch64.md).
 - [Set up FFglitch on Windows](readme_windows.md).
 
 JPEG glitches
@@ -97,6 +98,14 @@ Find webcam:
 Capture webcam (replace `"HP Truevision HD Camera"` with appropriate output from the previous command), convert to MPEG4, run average of motion vectors over previous frames:
 ```
 ./bin/ffgac -f dshow -i video="HP TrueVision HD Camera" -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_sink_and_rise.js -fs -asap
+```
+
+Webcam MPEG4 glitches (macOS)
+=============================
+
+Capture webcam, convert to MPEG4, run average of motion vectors over previous frames:
+```
+./bin/ffgac -f avfoundation -i 0 -vf hflip -vcodec mpeg4 -mpv_flags +nopimb+forcemv -qscale:v 1 -fcode 6 -g max -sc_threshold max -f rawvideo pipe: | ./bin/fflive -i pipe: -s scripts/mpeg4/mv_average.js -fs -asap
 ```
 
 YouTube Live MPEG4 glitches

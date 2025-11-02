@@ -1,5 +1,5 @@
-Set up FFglitch on macOS
-========================
+Set up FFglitch on macOS x86_64
+===============================
 
 - Either run this one magic command:
 ```
